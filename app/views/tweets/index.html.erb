@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+  <div class="col-xs-8 col-sm-10 col-md-10">
+    <h1>Tweets</h1>
+  </div>
+  <div class="col-xs-4 col-sm-2 col-md-2">
+    <%= link_to 'New Tweet', new_tweet_path, class: "btn-outline-secondary btn-sm" %>
+  </div>
+</div>
+
+<div class="row">
+  <% @tweets.each do |tweet| %>
+  <div class="col-sm-6 col-md-4">
+    <%= image_tag tweet.user.image_url %>
+    <%= link_to 'Like',tweet_likes_path(tweet), method: :post%>
+      <div class="thumbnail">
+        <div class="caption">
+          <p><%= tweet.content.truncate(150) %></p>
+          <p><%= link_to 'Show', tweet, class: "btn btn-outline-primary" %> 
+            <% if current_user&.id == tweet.user_id %>
+              <%= link_to 'Edit', edit_tweet_path(tweet), class: "btn btn-outline-info" %> 
+              <%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %></p>     
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
+<br>
+
+
+
+
+<%= link_to_next_page @tweets, 'Mostrar mas tweets' %>
+
+
+
+
+
